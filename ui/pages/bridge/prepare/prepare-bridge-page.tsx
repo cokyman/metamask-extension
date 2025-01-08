@@ -32,7 +32,6 @@ import {
   getToChain,
   getToChains,
   getToToken,
-  getToTokens,
   getWasTxDeclined,
   getFromAmountInCurrency,
   getValidationErrors,
@@ -106,11 +105,6 @@ const PrepareBridgePage = () => {
   );
 
   const toToken = useSelector(getToToken);
-  const {
-    toTokens,
-    toTopAssets,
-    isLoading: isToTokensLoading,
-  } = useSelector(getToTokens);
 
   const fromChains = useSelector(getFromChains);
   const toChains = useSelector(getToChains);
@@ -170,11 +164,10 @@ const PrepareBridgePage = () => {
     fromChain?.chainId,
   );
 
-  const toTokenListGenerator = useTokensWithFiltering(
-    toTokens,
-    toTopAssets,
-    toChain?.chainId,
-  );
+  const {
+    filteredTokenListGenerator: toTokenListGenerator,
+    isLoading: isToTokensLoading,
+  } = useTokensWithFiltering(toChain?.chainId);
 
   const { flippedRequestProperties } = useRequestProperties();
   const trackCrossChainSwapsEvent = useCrossChainSwapsEventTracker();
@@ -481,18 +474,13 @@ const PrepareBridgePage = () => {
                   value: networkConfig.chainId,
                 });
               dispatch(setToChainId(networkConfig.chainId));
-              dispatch(setToChain(networkConfig.chainId));
               dispatch(setToToken(null));
             },
             header: t('bridgeTo'),
             shouldDisableNetwork: ({ chainId }) =>
               chainId === fromChain?.chainId,
           }}
-          customTokenListGenerator={
-            toChain && toTokens && toTopAssets
-              ? toTokenListGenerator
-              : undefined
-          }
+          customTokenListGenerator={toChain ? toTokenListGenerator : undefined}
           amountInFiat={
             activeQuote?.toTokenAmount?.valueInCurrency || undefined
           }
