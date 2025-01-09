@@ -4890,6 +4890,7 @@ export default class MetamaskController extends EventEmitter {
     let keyringName = null;
     switch (deviceName) {
       case HardwareDeviceNames.trezor:
+      case HardwareDeviceNames.oneKeyViaTrezor:
         keyringName = keyringOverrides?.trezor?.type || TrezorKeyring.type;
         break;
       case HardwareDeviceNames.ledger:
