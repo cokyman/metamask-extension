@@ -168,36 +168,6 @@ describe('BridgeController', function () {
     );
   });
 
-  it('selectDestNetwork should set the bridge dest tokens and top assets', async function () {
-    await bridgeController.selectDestNetwork('0xa');
-    expect(bridgeController.state.bridgeState.destTokens).toStrictEqual({
-      '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984': {
-        address: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
-        symbol: 'ABC',
-        decimals: 16,
-        aggregators: ['lifl', 'socket'],
-      },
-      '0x0000000000000000000000000000000000000000': {
-        address: '0x0000000000000000000000000000000000000000',
-        decimals: 18,
-        iconUrl: './images/eth_logo.svg',
-        name: 'Ether',
-        symbol: 'ETH',
-      },
-    });
-    expect(
-      bridgeController.state.bridgeState.destTokensLoadingStatus,
-    ).toStrictEqual(RequestStatus.FETCHED);
-    expect(bridgeController.state.bridgeState.destTopAssets).toStrictEqual([
-      { address: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984', symbol: 'ABC' },
-    ]);
-    expect(bridgeController.state.bridgeState.quoteRequest).toStrictEqual({
-      slippage: 0.5,
-      srcTokenAddress: '0x0000000000000000000000000000000000000000',
-      walletAddress: undefined,
-    });
-  });
-
   it('selectSrcNetwork should set the bridge src tokens and top assets', async function () {
     await bridgeController.selectSrcNetwork('0xa');
     expect(bridgeController.state.bridgeState.srcTokens).toStrictEqual({
