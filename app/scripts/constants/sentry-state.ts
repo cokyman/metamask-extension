@@ -107,9 +107,6 @@ export const SENTRY_BACKGROUND_STATE = {
           chains: {},
         },
       },
-      srcTokens: {},
-      srcTopAssets: [],
-      srcTokensLoadingStatus: true,
       quoteRequest: {
         walletAddress: false,
         srcTokenAddress: true,

@@ -150,9 +150,7 @@
               "0xe708": "object"
             }
           }
-        },
-        "srcTokens": {},
-        "srcTopAssets": {}
+        }
       }
     },
     "SubjectMetadataController": { "subjectMetadata": "object" },

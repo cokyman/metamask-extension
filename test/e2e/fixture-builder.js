@@ -456,8 +456,6 @@ class FixtureBuilder {
             chains: {},
           },
         },
-        srcTokens: {},
-        srcTopAssets: [],
       },
     };
     return this;
