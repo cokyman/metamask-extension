@@ -8,7 +8,6 @@ import {
 } from '../../../shared/modules/selectors/networks';
 import {
   getAllAccountsOnNetworkAreEmpty,
-  getIsNetworkUsed,
   getNetworkIdentifier,
   getPreferences,
   getTheme,
@@ -22,7 +21,6 @@ import {
   getSwitchedNetworkDetails,
   getNetworkToAutomaticallySwitchTo,
   getNumberOfAllUnapprovedTransactionsAndMessages,
-  getUseRequestQueue,
   getCurrentNetwork,
   getSelectedInternalAccount,
   oldestPendingConfirmationSelector,
@@ -95,7 +93,6 @@ function mapStateToProps(state) {
     providerType: getProviderConfig(state).type,
     theme: getTheme(state),
     sendStage: getSendStage(state),
-    isNetworkUsed: getIsNetworkUsed(state),
     allAccountsOnNetworkAreEmpty: getAllAccountsOnNetworkAreEmpty(state),
     isTestNet: getIsTestnet(state),
     showExtensionInFullSizeView: getShowExtensionInFullSizeView(state),
@@ -120,7 +117,6 @@ function mapStateToProps(state) {
     switchedNetworkNeverShowMessage:
       selectSwitchedNetworkNeverShowMessage(state),
     currentExtensionPopupId: state.metamask.currentExtensionPopupId,
-    useRequestQueue: getUseRequestQueue(state),
     oldestPendingApproval,
     pendingApprovals,
     transactionsMetadata,

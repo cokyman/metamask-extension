@@ -185,7 +185,7 @@ async function withFixtures(options, testSuite) {
     }
     await mockServer.start(8000);
 
-    setManifestFlags(manifestFlags);
+    await setManifestFlags(manifestFlags);
 
     driver = (await buildWebDriver(driverOptions)).driver;
     webDriver = driver.driver;
@@ -633,9 +633,9 @@ async function unlockWallet(
     await driver.navigate();
   }
 
+  await driver.waitForSelector('#password', { state: 'enabled' });
   await driver.fill('#password', password);
   await driver.press('#password', driver.Key.ENTER);
-
   if (waitLoginSuccess) {
     await driver.assertElementNotPresent('[data-testid="unlock-page"]');
   }
@@ -722,10 +722,36 @@ async function clickSignOnSignatureConfirmation({
   if (snapSigInsights) {
     // there is no condition we can wait for to know the snap is ready,
     // so we have to add a small delay as the last alternative to avoid flakiness.
+    await driver.delay(largeDelayMs);
+  }
+  await driver.waitForSelector(
+    { text: 'Sign', tag: 'button' },
+    { state: 'enabled' },
+  );
+  await driver.clickElement({ text: 'Sign', tag: 'button' });
+}
+
+/**
+ * This method handles clicking the sign button on signature confirmation
+ * screen.
+ *
+ * @param {object} options - Options for the function.
+ * @param {WebDriver} options.driver - The WebDriver instance controlling the browser.
+ * @param {boolean} [options.snapSigInsights] - Whether to wait for the insights snap to be ready before clicking the sign button.
+ */
+async function clickSignOnRedesignedSignatureConfirmation({
+  driver,
+  snapSigInsights = false,
+}) {
+  await driver.clickElementSafe('.confirm-scroll-to-bottom__button');
+
+  if (snapSigInsights) {
+    // there is no condition we can wait for to know the snap is ready,
+    // so we have to add a small delay as the last alternative to avoid flakiness.
     await driver.delay(regularDelayMs);
   }
 
-  await driver.clickElement({ text: 'Sign', tag: 'button' });
+  await driver.clickElement({ text: 'Confirm', tag: 'button' });
 }
 
 /**
@@ -1000,6 +1026,7 @@ module.exports = {
   roundToXDecimalPlaces,
   generateRandNumBetween,
   clickSignOnSignatureConfirmation,
+  clickSignOnRedesignedSignatureConfirmation,
   validateContractDetails,
   switchToNotificationWindow,
   getEventPayloads,
