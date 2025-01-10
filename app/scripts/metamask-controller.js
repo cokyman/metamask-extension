@@ -26,7 +26,7 @@ import {
 } from '@metamask/keyring-controller';
 import createFilterMiddleware from '@metamask/eth-json-rpc-filters';
 import createSubscriptionManager from '@metamask/eth-json-rpc-filters/subscriptionManager';
-import { JsonRpcError, providerErrors } from '@metamask/rpc-errors';
+import { JsonRpcError, providerErrors, rpcErrors } from '@metamask/rpc-errors';
 
 import { Mutex } from 'await-semaphore';
 import log from 'loglevel';
@@ -5698,23 +5698,18 @@ export default class MetamaskController extends EventEmitter {
 
     const newCaveatValue = {
       requiredScopes: {},
-      optionalScopes: {},
+      optionalScopes: {
+        'wallet:eip155': {
+          accounts: [],
+        },
+      },
       isMultichainOrigin: false,
     };
 
-    const caveatValueWithChains = isSnapId(origin)
-      ? {
-          ...newCaveatValue,
-          optionalScopes: {
-            'wallet:eip155': {
-              accounts: [],
-            },
-          },
-        }
-      : setPermittedEthChainIds(
-          newCaveatValue,
-          legacyApproval.approvedChainIds,
-        );
+    const caveatValueWithChains = setPermittedEthChainIds(
+      newCaveatValue,
+      isSnapId(origin) ? [] : legacyApproval.approvedChainIds,
+    );
 
     const caveatValueWithAccounts = setEthAccounts(
       caveatValueWithChains,
