@@ -395,7 +395,7 @@ exports[`Confirm should match snapshot for signature - typed sign - V4 - PermitB
                   class="mm-box mm-text mm-text--body-md mm-box--color-inherit"
                   style="white-space: pre-wrap;"
                 >
-                  You're removing the spender permission to spend this many tokens from your account.
+                  You're giving the spender permission to spend this many tokens from your account.
                 </p>
               </div>
             </div>
@@ -866,7 +866,7 @@ exports[`Confirm should match snapshot for signature - typed sign - V4 - PermitS
                   class="mm-box mm-text mm-text--body-md mm-box--color-inherit"
                   style="white-space: pre-wrap;"
                 >
-                  You're removing the spender permission to spend this many tokens from your account.
+                  You're giving the spender permission to spend this many tokens from your account.
                 </p>
               </div>
             </div>
@@ -2349,7 +2349,7 @@ exports[`Confirm should match snapshot for signature - typed sign - permit 1`] =
                   class="mm-box mm-text mm-text--body-md mm-box--color-inherit"
                   style="white-space: pre-wrap;"
                 >
-                  You're removing the spender permission to spend this many tokens from your account.
+                  You're giving the spender permission to spend this many tokens from your account.
                 </p>
               </div>
             </div>
