@@ -40,6 +40,7 @@ function createManifestTasks({
             `${platform}.json`,
           ),
         );
+        console.log('------------ start');
         const result = mergeWith(
           cloneDeep(baseManifest),
           process.env.BARAD_DUR ? cloneDeep(baradDurManifest) : {},
@@ -47,8 +48,21 @@ function createManifestTasks({
           browserVersionMap[platform],
           await getBuildModifications(buildType, platform),
           customArrayMerge,
+          {
+            _flags: {
+              remoteFeatureFlags: {
+                testFlagForThreshold: {
+                  name: 'test-flag',
+                  value: 'test-value',
+                },
+                test2: {
+                  value: '1',
+                },
+              },
+            },
+          },
         );
-
+        console.log({ result });
         modifyNameAndDescForNonProd(result);
 
         const dir = path.join('.', 'dist', platform);

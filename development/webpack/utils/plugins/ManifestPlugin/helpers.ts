@@ -24,6 +24,22 @@ export function transformManifest(args: { lockdown: boolean; test: boolean }) {
     }
   }
 
+  function addRemoteFeatureFlags(browserManifest: chrome.runtime.Manifest) {
+    browserManifest._flags = {
+      remoteFeatureFlags: {
+        testFlagForThreshold: {
+          name: 'test-flag',
+          value: 'test-value',
+        },
+        test2: {
+          value: '1',
+        },
+      },
+    }
+  }
+
+  transforms.push(addRemoteFeatureFlags);
+
   if (!args.lockdown) {
     // remove lockdown scripts from content_scripts
     transforms.push(removeLockdown);
