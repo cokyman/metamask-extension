@@ -1,18 +1,12 @@
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { isEqual } from 'lodash';
 import { ChainId } from '@metamask/controller-utils';
 import { Hex } from '@metamask/utils';
 import { zeroAddress } from 'ethereumjs-util';
 import {
   getAllDetectedTokensForSelectedAddress,
-  getTokenExchangeRates,
   selectERC20TokensByChain,
 } from '../../selectors';
-import {
-  getConversionRate,
-  getCurrentCurrency,
-} from '../../ducks/metamask/metamask';
 import {
   SWAPS_CHAINID_DEFAULT_TOKEN_MAP,
   SwapsTokenObject,
@@ -52,10 +46,6 @@ export const useTokensWithFiltering = (chainId?: ChainId | Hex) => {
   const allDetectedTokens: Record<string, Token[]> = useSelector(
     getAllDetectedTokensForSelectedAddress,
   );
-
-  const tokenConversionRates = useSelector(getTokenExchangeRates, isEqual);
-  const conversionRate = useSelector(getConversionRate);
-  const currentCurrency = useSelector(getCurrentCurrency);
 
   const { assetsWithBalance: multichainTokensWithBalance } =
     useMultichainBalances();
@@ -226,9 +216,6 @@ export const useTokensWithFiltering = (chainId?: ChainId | Hex) => {
     [
       multichainTokensWithBalance,
       topTokens,
-      tokenConversionRates,
-      conversionRate,
-      currentCurrency,
       chainId,
       tokenList,
       allDetectedTokens,
