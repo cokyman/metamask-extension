@@ -63,6 +63,7 @@ const mockTransactionMetricsRequest = {
   updateEventFragment: jest.fn(),
   getAccountType: jest.fn(),
   getDeviceModel: jest.fn(),
+  getHardwareTypeForMetric: jest.fn(),
   getEIP1559GasFeeEstimates: jest.fn(),
   getSelectedAddress: jest.fn(),
   getParticipateInMetrics: jest.fn(),
@@ -75,9 +76,7 @@ const mockTransactionMetricsRequest = {
   trackEvent: jest.fn(),
   getIsSmartTransaction: jest.fn(),
   getSmartTransactionByMinedTxHash: jest.fn(),
-  getRedesignedTransactionsEnabled: jest.fn(),
   getMethodData: jest.fn(),
-  getIsRedesignedConfirmationsDeveloperEnabled: jest.fn(),
   getIsConfirmationAdvancedDetailsOpen: jest.fn(),
 } as TransactionMetricsRequest;
 
